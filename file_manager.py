@@ -1,4 +1,6 @@
 import os
+import sys
+
 # После запуска программы пользователь видит меню, состоящее из следующих пунктов:
 #
 #  1- создать папку;
@@ -17,14 +19,25 @@ import os
 # После выполнения какого либо из пунктов снова возвращаемся в меню, пока пользователь не выберет выход
 #
 
+
 # 1
-def my_create(folder_name):
-    os.mkdir(folder_name)
+def my_create():
+    print('--- Создание папки ---------')
+    try:
+        folder_name = input('\tВведите имя папки:')
+        os.mkdir(folder_name)
+    except Exception as error:
+        print(error)
 
 
 # 2
 def my_delete():
-    pass
+    print('--- Удаление папки ---------')
+    try:
+        folder_name = input('\tВведите имя папки:')
+        os.rmdir(folder_name)
+    except Exception as error:
+        print(error)
 
 
 # 3
@@ -32,51 +45,76 @@ def my_copy():
     pass
 
 
-#f 4
+# 4
 def my_print_list():
+    print('\n--- Список файлов и папок ------')
+    print(f'\n{os.getcwd()}')
+    file_list = os.listdir()
+    for f in file_list:
+        print(f'\t{f}')
     pass
 
 
 # 5
 def my_print_folders():
+    print('\n--- Список папок -----------')
+    print(f'{os.getcwd()}')
     pass
 
 
 # 6
 def my_print_files():
-    pass
+    print('--- Список файлов ----------')
+    my_path = os.getcwd()
+    print(my_path)
+    for i in os.listdir('.'):
+        if os.path.isfile(os.path.join(my_path, i)):
+            print(f'\t./{i}')
+
+    # for current_dir, dirs, files in os.walk("."):
+    #     print(current_dir, dirs, files)
+
 
 
 # 7
 def my_os_info():
-    pass
+    print('--- Информация об OS -------')
+    info = os.uname()
+    print(f'\tOS: {info.sysname} {info.release}')
 
 
 # 8
 def my_print_author():
+    print('--- Информация об авторе ---')
+    print('\tМорев С.А.')
     pass
 
 
 # 9
 def my_victory_game():
+    print('--- Игра "Викторина" -------')
     pass
 
 
 # 10
 def my_bill():
+    print('--- Личный счет ------------')
     pass
 
 
 # 11
 def my_change_dir():
+    print('--- Перейти в папку --------')
     pass
 
+
 # 12  Exit !
+def my_exit():
+    print('--- Выход ---')
 
 
 def show_menu():
-    path = os.getcwd()
-    print(path)
+    print(f'\n{os.getcwd()}')
 
     print(' 1- Создать папку')
     print(' 2- Удалить (файл/папку)')
@@ -90,13 +128,20 @@ def show_menu():
     print('10- Мой банковский счет')
     print('11- Смена рабочей директории')
     print('12- Выход')
-    item = input('Выберите пункт меню: ')
+    item = -1
+    try:
+        item = int(input('Выберите пункт меню: '))
+    except ValueError:
+        pass
+    except Exception as err:
+        print(err)
+
     return item
 
 
 def main_menu():
     while True:
-        choice = int(show_menu())
+        choice = show_menu()
         if choice == 1:
             my_create()
         elif choice == 2:
@@ -120,6 +165,7 @@ def main_menu():
         elif choice == 11:
             my_change_dir()
         elif choice == 12:
+            my_exit()
             break
 
 
