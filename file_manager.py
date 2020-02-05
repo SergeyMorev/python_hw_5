@@ -1,6 +1,10 @@
 import os
 import sys
 
+from my_current_account import start_account
+from my_quiz_game import start_quiz_game
+
+
 # После запуска программы пользователь видит меню, состоящее из следующих пунктов:
 #
 #  1- создать папку;
@@ -93,13 +97,13 @@ def my_print_author():
 # 9
 def my_victory_game():
     print('--- Игра "Викторина" -------')
-    pass
+    start_quiz_game()
 
 
 # 10
 def my_bill():
     print('--- Личный счет ------------')
-    pass
+    start_account()
 
 
 # 11

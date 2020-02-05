@@ -87,7 +87,7 @@ def print_shopping_list():
         print('\tНет покупок')
 
 
-def main():
+def start_account():
     while True:
         choice = show_menu()
         if choice == '1':
@@ -102,7 +102,8 @@ def main():
             print('Неверный пункт меню')
 
 
-main()
+if __name__ == '__main__':
+    start_account()
 
 
 

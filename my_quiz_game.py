@@ -3,13 +3,15 @@ import random
 
 days = ['',
         'первое', 'второе', 'третье', 'четвертое', 'пятое', 'шестое', 'седьмое', 'восьмое', 'девятое', 'десятое',
-        'одинадцатое', 'двенадцатое', 'тринадцатое', 'четырнадцатое', 'пятнадцатое', 'шестнадцатое', 'семнадцатое', 'восемнадцатое', 'девятнадцатое', 'двадцатое',
-        'двадцать первое', 'двадцать второе', 'двадцать третье', 'двадцать четвертое', 'двадцать пятое', 'двадцать шестое', 'двадцать седьмое', 'двадцать восьмое', 'двадцать девятое', 'тридцатое',
-        'тридцать первое']
+        'одинадцатое', 'двенадцатое', 'тринадцатое', 'четырнадцатое', 'пятнадцатое', 'шестнадцатое', 'семнадцатое',
+        'восемнадцатое', 'девятнадцатое', 'двадцатое', 'двадцать первое', 'двадцать второе', 'двадцать третье',
+        'двадцать четвертое', 'двадцать пятое', 'двадцать шестое', 'двадцать седьмое', 'двадцать восьмое',
+        'двадцать девятое', 'тридцатое', 'тридцать первое']
 
 months = ['',
           'января', 'февраля', 'марта',    'апреля',  'мая',    'июня',
           'июля',   'августа', 'сентября', 'октября', 'ноября', 'декабря', ]
+
 # Индексы столбцов
 name_col = 0
 date_col = 1
@@ -30,25 +32,29 @@ def print_right_date(date):
     print(f'Правильный ответ: {days[int(l[0])]} {months[int(l[1])]} {l[2]} года')
 
 
-person_count = len(person_list)
-question_count = 3
-exit_key = 'q'
+def start_quiz_game():
+    person_count = len(person_list)
+    question_count = 3
+    exit_key = 'q'
+    res = '0'
+
+    while exit_key != res:
+        indexes = random.sample(range(person_count), question_count)
+        right = 0
+        print(f'Ответьте на {question_count} вопроса:')
+        for i in indexes:
+            person = person_list[i]
+            if input(f"Введите дату рождения {person[name_col]} (в формате dd.mm.yyyy):") == str(person[date_col]):
+                right += 1
+            else:
+                print_right_date(person[date_col])
+        print(" ----- ")
+        print("Правильных ответов " + str(right))
+        print("Неправильных ответов " + str(question_count - right))
+        print("Процент правильных ответов " + str(right * 100 / question_count) + " %")
+        print(" ----- ")
+        res = input(f"\nДля повтора введите любой символ, для выхода введите '{exit_key}'").lower()
 
 
-res = '0'
-
-while exit_key != res:
-    indexes = random.sample(range(person_count), question_count)
-    right = 0
-    for i in indexes:
-        person = person_list[i]
-        if input(f"Введите дату рождения {person[name_col]} (в формате dd.mm.yyyy):") == str(person[date_col]):
-            right += 1
-        else:
-            print_right_date(person[date_col])
-    print(" ----- ")
-    print("Правильных ответов " + str(right))
-    print("Неправильных ответов " + str(question_count - right))
-    print("Процент правильных ответов " + str(right * 100 / question_count) + " %")
-    print(" ----- ")
-    res = input(f"\nДля повтора введите любой символ, для выхода введите '{exit_key}'").lower()
+if __name__ == '__main__':
+    start_quiz_game()
