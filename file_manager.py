@@ -62,8 +62,11 @@ def my_print_list():
 # 5
 def my_print_folders():
     print('\n--- Список папок -----------')
-    print(f'{os.getcwd()}')
-    pass
+    my_path = os.getcwd()
+    print(my_path)
+    for i in os.listdir('.'):
+        if os.path.isdir(os.path.join(my_path, i)):
+            print(f'\t./{i}')
 
 
 # 6
@@ -77,7 +80,6 @@ def my_print_files():
 
     # for current_dir, dirs, files in os.walk("."):
     #     print(current_dir, dirs, files)
-
 
 
 # 7
@@ -109,6 +111,21 @@ def my_bill():
 # 11
 def my_change_dir():
     print('--- Перейти в папку --------')
+    try:
+        my_path = os.getcwd()
+        print(my_path)
+        folder_name = input('\tВведите имя папки:')
+        if os.path.isdir(folder_name):
+            os.chdir(folder_name)
+        elif os.path.isdir(my_path + folder_name):
+            os.chdir(my_path + folder_name)
+        else:
+            print('Папка не найдена')
+
+        print(os.getcwd())
+
+    except Exception as error:
+        print(error)
     pass
 
 
